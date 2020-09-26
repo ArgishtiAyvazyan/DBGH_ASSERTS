@@ -12,7 +12,7 @@
 #endif
 
 #define _IMPL_DBGH_ASSERT(_level_, _expression_, _message_)                                                                            \
-    if( dbgh::CAssertConfig::Get().IsActiveAssert(_level_) and !bool(_expression_) )                                                   \
+   if ( dbgh::CAssertConfig::Get().IsActiveAssert(_level_) && ! bool(_expression_) )                                                   \
     {                                                                                                                                  \
         dbgh::impl::CAssertHandler::HandleAssert<_level_>(_message_, #_expression_ , __FILE__, __LINE__, __func__);                    \
     }                                                                                                                                  \
@@ -20,7 +20,7 @@
 #define _IMPL_DBGH_ASSERT_DEBUG(_level_, _expression_, _message_)                                                                      \
     {                                                                                                                                  \
         static bool __ignore { false };                                                                                                \
-        if( (not __ignore) and (dbgh::CAssertConfig::Get().IsActiveAssert(_level_)) and (not bool(_expression_)) )                     \
+        if ( (! __ignore) && (dbgh::CAssertConfig::Get().IsActiveAssert(_level_)) && (! bool(_expression_)) )                          \
         {                                                                                                                              \
             try {                                                                                                                      \
                 dbgh::impl::CAssertHandler::HandleAssert<_level_>(_message_, #_expression_ , __FILE__, __LINE__, __func__, __ignore);  \

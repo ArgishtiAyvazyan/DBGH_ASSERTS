@@ -8,6 +8,7 @@ cmake_install.cmake
 install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
+CMakeSettings.json
 build/
 
 #Windows
@@ -15,3 +16,7 @@ build/
 
 #Visual studio code
 .vscode
+.idea/workspace.xml
+.idea/vcs.xml
+.idea/modules.xml
+.idea/DBGH_ASSERTS.iml

@@ -11,8 +11,6 @@
 #include <string>
 #include <string_view>
 
-#define DBGH_NODISCARD [[nodiscard]]
-
 
 namespace dbgh
 {
@@ -26,7 +24,7 @@ using TLine = decltype(__LINE__);
  * @class CAssertException
  * @brief The class for all exceptional conditions for asserts.
  */
-class CAssertException
+class CAssertException : public std::exception
 {
 public:
 
@@ -39,11 +37,12 @@ public:
      * @param line          The line number in the file that contains the code that is throwing an exception.
      * @param function      The function that contains the code that is throwing an exception.
      */
-    CAssertException(const char* message,
-                    const char* expression,
-                    const char* file,
-                    TLine line,
-                    const char* function);
+    CAssertException(
+            const char* message,
+            const char* expression,
+            const char* file,
+            TLine line,
+            const char* function);
 
     /**
      * @brief   Gets a message that describes the current exception.
@@ -51,7 +50,7 @@ public:
      * @return  std::string_view The error message that explains the \n
      *           reason for the exception, or an empty string_view ("")
      */
-    DBGH_NODISCARD std::string_view Message() const noexcept;
+    [[nodiscard]] std::string_view Message() const noexcept;
 
 
     /**
@@ -60,7 +59,7 @@ public:
      * @return  std::string_view The file name, or Empty string if the file name \n
      *           cannot be determined.
      */
-    DBGH_NODISCARD std::string_view FileName() const noexcept;
+    [[nodiscard]] std::string_view FileName() const noexcept;
 
     /**
      * @brief   Gets the line number in the file that contains the code that is throwing an exception.
@@ -68,7 +67,7 @@ public:
      * @return  std::string_view The file line number, or 0 (zero) if the file line \n
      *           number cannot be determined.
      */
-    DBGH_NODISCARD TLine LineNumber() const noexcept;
+    [[nodiscard]] TLine LineNumber() const noexcept;
 
     /**
      * @brief   Gets the function that contains the code that is throwing an exception.
@@ -76,7 +75,7 @@ public:
      * @return  std::string_view The function name, or Empty string if the function name \n
      *           cannot be determined.
      */
-    DBGH_NODISCARD std::string_view Function() const noexcept;
+    [[nodiscard]] std::string_view Function() const noexcept;
 
     /**
      * @brief   Gets the unacceptable expression that threw the exception.
@@ -84,7 +83,16 @@ public:
      * @return  std::string_view The expression, or Empty string if the expression \n
      *           cannot be determined.
      */
-    DBGH_NODISCARD std::string_view Expression() const noexcept;
+    [[nodiscard]] std::string_view Expression() const noexcept;
+
+
+    /**
+     * @brief   Gets a message that describes the current exception.
+     *
+     * @return  const char* The error message that explains the \n
+     *           reason for the exception, or nullptr
+     */
+    [[nodiscard]] const char* what() const noexcept override;
 
 private:
 
@@ -102,12 +110,6 @@ private:
 
     /**
      * @internal
-     * @brief The line number in the file that contains the code that is throwing an exception.
-     */
-    TLine       m_iLineNumber;
-
-    /**
-     * @internal
      * @brief   Not a valid expression that threw the exception, as a string.
      */
     const char* m_strExpression;
@@ -117,6 +119,13 @@ private:
      * @brief   The function that contains the code that is throwing an exception.
      */
     const char* m_strFunction;
+
+    /**
+     * @internal
+     * @brief The line number in the file that contains the code that is throwing an exception.
+     */
+    TLine m_iLineNumber;
+
 }; // class CAssertException
-} // namespace gen
+} // namespace dbgh
 

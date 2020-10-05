@@ -15,16 +15,17 @@ namespace dbgh
 using namespace std::string_literals;
 
 CAssertException::CAssertException(
-    const char* message,
-    const char* expression,
-    const char* file,
-    TLine line,
-    const char* function)
-    : m_strMessage(message)
-    , m_strFileName(file)
-    , m_iLineNumber(line)
-    , m_strExpression(expression)
-    , m_strFunction(function)
+        const char* message,
+        const char* expression,
+        const char* file,
+        TLine line,
+        const char* function)
+        : std::exception (),
+        m_strMessage(message),
+        m_strFileName(file),
+        m_strExpression(expression),
+        m_strFunction(function),
+        m_iLineNumber(line)
 { }
 
 std::string_view CAssertException::Message() const noexcept
@@ -51,4 +52,10 @@ std::string_view CAssertException::Expression() const noexcept
 {
     return m_strExpression;
 }
-} // namespace gen
+
+const char* CAssertException::what() const noexcept
+{
+    return m_strMessage;
+}
+
+} // namespace dbgh

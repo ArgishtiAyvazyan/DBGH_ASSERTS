@@ -1,5 +1,18 @@
+/**
+ * @file        CHandlerExecutor.h
+ * @author      Argishti Ayvazyan (ayvazyan.argishti@gmail.com)
+ * @brief       Declaration for CAssertException class.
+ * @date        27-09-2020
+ * @copyright   Copyright (c) 2020
+ */
+
 #pragma once
+
 #include <array>
+#include <memory>
+#include <exception>
+
+#include "CHandlerExecutor.h"
 
 namespace dbgh
 {
@@ -26,63 +39,45 @@ enum class EAssertLevel : size_t
      */
     Fatal,
 
-    __END_ENUM__
+    END_ENUM_
 };
 
 class CAssertConfig
 {
     CAssertConfig();
-    ~CAssertConfig() = default;
-    CAssertConfig(CAssertConfig&&) noexcept = delete;
-    CAssertConfig(const CAssertConfig&) = delete;
-    CAssertConfig& operator=(CAssertConfig&&) noexcept = delete;
-    CAssertConfig& operator=(const CAssertConfig&) = delete;
+
+    ~CAssertConfig();
 
 public:
 
+    CAssertConfig(CAssertConfig&&) noexcept = delete;
+
+    CAssertConfig(const CAssertConfig&) = delete;
+
+    CAssertConfig& operator=(CAssertConfig&&) noexcept = delete;
+
+    CAssertConfig& operator=(const CAssertConfig&) = delete;
+
     static CAssertConfig& Get();
 
-    void EnableAsserts(EAssertLevel level) noexcept;
+    [[maybe_unused]] void EnableAsserts(EAssertLevel level) noexcept;
 
-    void DisableAsserts(EAssertLevel level) noexcept;
+    [[maybe_unused]] void DisableAsserts(EAssertLevel level) noexcept;
 
-    bool IsActiveAssert(EAssertLevel level) const noexcept;
+    [[nodiscard]] bool IsActiveAssert(EAssertLevel level) const noexcept;
+
+    [[maybe_unused]] void SetExecutor(
+            std::unique_ptr<dbgh::CHandlerExecutor> executor = std::make_unique<dbgh::CHandlerExecutor>());
+
+    [[nodiscard]] dbgh::CHandlerExecutor* GetExecutor() const noexcept;
 
 private:
 
-    std::array<bool, static_cast<size_t>(EAssertLevel::__END_ENUM__)> m_arrEnableFlags;
+    std::array<bool, static_cast<size_t>(EAssertLevel::END_ENUM_)> m_arrEnableFlags;
+
+    std::unique_ptr<dbgh::CHandlerExecutor> m_pHandlerExecutor;
+
 };
-
-inline CAssertConfig::CAssertConfig()
-    : m_arrEnableFlags
-    {
-        true, // Warning default value.
-        true, // Debug default value.
-        true, // Error default value.
-        false // Fatal default value.
-    }
-{ }
-
-inline CAssertConfig& CAssertConfig::Get()
-{
-    static CAssertConfig uniqueInstance;
-    return uniqueInstance;
-}
-
-inline void CAssertConfig::EnableAsserts(const EAssertLevel level) noexcept
-{
-    m_arrEnableFlags[static_cast<size_t>(level)] = true;
-}
-
-inline void CAssertConfig::DisableAsserts(const EAssertLevel level) noexcept
-{
-    m_arrEnableFlags[static_cast<size_t>(level)] = false;
-}
-
-inline bool CAssertConfig::IsActiveAssert(const EAssertLevel level) const noexcept
-{
-    return m_arrEnableFlags[static_cast<size_t>(level)];
-}
 
 } // namespace dbgh
 

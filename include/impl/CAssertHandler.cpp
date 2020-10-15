@@ -19,7 +19,7 @@ namespace dbgh::impl
 
 namespace
 {
-const char* ToString(const EAssertLevel level)
+[[nodiscard]] const char* ToString(const EAssertLevel level)
 {
     switch (level)
     {
@@ -50,12 +50,15 @@ template<EAssertLevel T, std::enable_if_t<(EAssertLevel::Debug == T), int>>
 inline void CAssertHandler::HandleAssert(
         const char* message, const char* expression, const char* file, TLine line, const char* function, bool& ignore)
 {
+    const auto strInfo = margeAssertInfo(T, message, expression, file, line, function);
+
+    CAssertConfig::Get().GetExecutor()->ShowMessage(strInfo);
+
     const auto action = waitForUserDecision();
     switch (action)
     {
         case EAssertAction::Abort:
-            CAssertConfig::Get().GetExecutor()->Terminate(
-                    margeAssertInfo(T, message, expression, file, line, function));
+            CAssertConfig::Get().GetExecutor()->Terminate(strInfo);
             break;
         case EAssertAction::Throw:
             throw CAssertException { message, expression, file, line, function };

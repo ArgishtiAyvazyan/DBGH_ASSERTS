@@ -1,7 +1,7 @@
 /**
  * @file        CAssertConfig.cpp
  * @author      Argishti Ayvazyan (argishty.ayvazyan@gmail.com)
- * @brief       Implementation for CAssertException class.
+ * @brief       Implementation for CAssertConfig class.
  * @date        27-09-2020
  * @copyright   Copyright (c) 2020
  */

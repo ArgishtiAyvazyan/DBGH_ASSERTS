@@ -18,13 +18,13 @@ namespace dbgh
 
 void CHandlerExecutor::Terminate(std::string_view message)
 {
-    std::cerr << message << std::endl;
+    Logs(message);
     std::terminate();
 }
 
 void CHandlerExecutor::HandleWarning(std::string_view message)
 {
-    std::cerr << message << std::endl;
+    Logs(message);
 }
 
 void CHandlerExecutor::HandleError(std::string_view message, const CAssertException& exception)

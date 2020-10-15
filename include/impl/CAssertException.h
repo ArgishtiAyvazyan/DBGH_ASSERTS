@@ -31,18 +31,18 @@ public:
     /**
      * @brief               Construct a new CAssertException object.
      *
-     * @param message       The error description.
-     * @param expression    Not a valid expression that threw the exception, as a string.
-     * @param file          The filename that contains the code that is throwing an exception.
-     * @param line          The line number in the file that contains the code that is throwing an exception.
-     * @param function      The function that contains the code that is throwing an exception.
+     * @param[in] message       The error description.
+     * @param[in] expression    Not a valid expression that threw the exception, as a string.
+     * @param[in] file          The filename that contains the code that is throwing an exception.
+     * @param[in] line          The line number in the file that contains the code that is throwing an exception.
+     * @param[in] function      The function that contains the code that is throwing an exception.
      */
     CAssertException(
             const char* message,
             const char* expression,
             const char* file,
             TLine line,
-            const char* function);
+            const char* function) noexcept;
 
     /**
      * @brief   Gets a message that describes the current exception.

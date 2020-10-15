@@ -19,7 +19,7 @@ CAssertException::CAssertException(
         const char* expression,
         const char* file,
         TLine line,
-        const char* function)
+        const char* function) noexcept
         : std::exception (),
         m_strMessage(message),
         m_strFileName(file),

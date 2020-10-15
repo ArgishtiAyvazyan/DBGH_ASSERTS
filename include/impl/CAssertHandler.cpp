@@ -97,11 +97,12 @@ std::string CAssertHandler::margeAssertInfo(
 {
     std::stringstream ss;
     ss << ToString(level) << " ASSERT:" << std::endl;
-    ss << "  [file]:       " << file << std::endl;
-    ss << "  [line]:       " << line << std::endl;
-    ss << "  [function]:   " << function << std::endl;
-    ss << "  [expression]: " << expression << std::endl;
-    ss << "  [what]:       " << message << std::endl;
+    ss << "  [uncaught exc]: " << std::uncaught_exceptions() << std::endl;
+    ss << "  [file]:         " << file << std::endl;
+    ss << "  [line]:         " << line << std::endl;
+    ss << "  [function]:     " << function << std::endl;
+    ss << "  [expression]:   " << expression << std::endl;
+    ss << "  [what]:         " << message << std::endl;
     ss << std::endl;
     return std::move(ss).str();
 }

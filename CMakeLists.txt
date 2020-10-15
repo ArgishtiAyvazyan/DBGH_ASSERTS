@@ -976,3 +976,4 @@ set(CMAKE_CXX_FLAGS_RELEASE_INIT "")
 
 add_subdirectory("include")
 add_subdirectory("example")
+add_subdirectory("tests")

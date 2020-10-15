@@ -10,7 +10,8 @@ compile_commands.json
 CTestTestfile.cmake
 CMakeSettings.json
 build/
-
+cmake-build-debug/
+.idea/
 #Windows
 .vs
 

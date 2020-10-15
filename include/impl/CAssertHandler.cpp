@@ -68,7 +68,7 @@ inline void CAssertHandler::HandleAssert(
             break;
         case EAssertAction::Ignore:
             return;
-        case EAssertAction::IgnoreAll:
+        case EAssertAction::IgnoreForever:
             ignore = true;
             break;
         default:
@@ -116,11 +116,14 @@ auto CAssertHandler::waitForUserDecision() -> EAssertAction
                     std::make_pair('D', EAssertAction::Debug),
                     std::make_pair('i', EAssertAction::Ignore),
                     std::make_pair('I', EAssertAction::Ignore),
-                    std::make_pair('a', EAssertAction::IgnoreAll),
-                    std::make_pair('A', EAssertAction::IgnoreAll),
+                    std::make_pair('f', EAssertAction::IgnoreForever),
+                    std::make_pair('F', EAssertAction::IgnoreForever),
+                    std::make_pair('t', EAssertAction::Throw),
+                    std::make_pair('T', EAssertAction::Throw),
             };
 
-    CAssertConfig::Get().GetExecutor()->ShowMessage("Press (I)gnore / Ignore (A)ll / (D)ebug / A(b)ort: \n"sv);
+    CAssertConfig::Get().GetExecutor()->ShowMessage(
+            "Press (I/i) - Ignore / (F/f) - Ignore forever / (D/d) - Debug / (T/t) - Throw exception / (B/b) - Abort \n"sv);
 
     for (;;)
     {

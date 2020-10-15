@@ -147,7 +147,7 @@ void TestDebugAssert()
     }
     TEST_ASSERT(DummyExecutor::s_bTerminateCalled == true);
 
-    DummyExecutor::s_cUserInput = 'a';
+    DummyExecutor::s_cUserInput = 'f';
     DummyExecutor::s_bTerminateCalled = false;
     for (int i = 0; i < testCount; ++i)
     {
@@ -156,6 +156,17 @@ void TestDebugAssert()
         DummyExecutor::s_cUserInput = 'b';
     }
     TEST_ASSERT(DummyExecutor::s_bTerminateCalled == false);
+
+    DummyExecutor::s_cUserInput = 't';
+    try
+    {
+        ASSERT_DEBUG(2 * 3 == 213, "FAIL");
+        TEST_ASSERT(false);
+    }
+    catch ([[maybe_unused]] const dbgh::CAssertException& e)
+    {
+        TEST_ASSERT(true);
+    }
 
     std::cout << "End Debug Assert testing." << std::endl << std::endl;
 

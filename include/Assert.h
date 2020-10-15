@@ -79,8 +79,9 @@
  *              for action.
  *             There are available this actions:
  *              > (I/i) Ignore this assertion and continue execution.
- *              > (A/a) Ignore this assertion forever and continue execution.
+ *              > (F/f) Ignore this assertion forever and continue execution.
  *              > (D/d) Break into the debugger if that attached otherwise behavior undefined.
+ *              > (T/t) Throw \ref dbgh::CAssertException exception.
  *              > (B/b) Calls Terminate in \ref dbgh::CHandlerExecutor. By default, Terminate prints the assertion information
  *                  to std::cerr and call std::terminate.
  *

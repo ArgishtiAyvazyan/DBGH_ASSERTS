@@ -36,7 +36,7 @@ class CAssertHandler
         Abort,
         Debug,
         Ignore,
-        IgnoreAll,
+        IgnoreForever,
         Throw
     }; // enum EAssertAction
 

@@ -90,7 +90,7 @@
  *
  * @details    Prints information about assertion, the message contains:
  *              > Assertion type - DEBUG
- *              > The number of uncaught exceptions.
+ *              > Uncaught exc - The number of uncaught exceptions.
  *              > Filename - where the assertion is failed.
  *              > Function name - where the assertion is failed.
  *              > Expression - condition for the assertion that is failed.
@@ -120,7 +120,7 @@
  *
  * @details    Prints information about assertion, the message contains:
  *              > Assertion type - WARNING
- *              > The number of uncaught exceptions.
+ *              > Uncaught exc - The number of uncaught exceptions.
  *              > Filename - where the assertion is failed.
  *              > Function name - where the assertion is failed.
  *              > Expression - condition for the assertion that is failed.
@@ -151,7 +151,7 @@
  *
  * @details    Prints information about assertion, the message contains:
  *              > Assertion type - ERROR
- *              > The number of uncaught exceptions.
+ *              > Uncaught exc - The number of uncaught exceptions.
  *              > Filename - where the assertion is failed.
  *              > Function name - where the assertion is failed.
  *              > Expression - condition for the assertion that is failed.
@@ -183,7 +183,7 @@
  *
  * @details    Prints information about assertion, the message contains:
  *              > Assertion type - FATAL
- *              > The number of uncaught exceptions.
+ *              > Uncaught exc - The number of uncaught exceptions.
  *              > Filename - where the assertion is failed.
  *              > Function name - where the assertion is failed.
  *              > Expression - condition for the assertion that is failed.

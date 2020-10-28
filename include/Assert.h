@@ -41,11 +41,15 @@
  * @param      _expression_  Expression to be evaluated. If this expression evaluates to false, this causes an assertion failure.
  * @param      _message_     The string that will appear as runtime error if the _expression_ is false.
  */
-#define IMPL_DBGH_ASSERT(_level_, _expression_, _message_)                                                                             \
-    if ( dbgh::CAssertConfig::Get().IsActiveAssert(_level_) && ! bool(_expression_) )                                                  \
-    {                                                                                                                                  \
-        dbgh::impl::CAssertHandler::HandleAssert<_level_>(_message_, #_expression_ , __FILE__, __LINE__, __func__);                    \
-    }                                                                                                                                  \
+#define IMPL_DBGH_ASSERT(_level_, _expression_, _message_)                                                                              \
+    if ( dbgh::CAssertConfig::Get().IsActiveAssert(_level_) && ! bool(_expression_) )                                                   \
+    {                                                                                                                                   \
+        try {                                                                                                                           \
+            dbgh::impl::CAssertHandler::HandleAssert<_level_>(_message_, #_expression_ , __FILE__, __LINE__, __func__);                 \
+        } catch (const dbgh::CAssertException& e) {                                                                                     \
+            throw e;                                                                                                                    \
+        }                                                                                                                               \
+    }                                                                                                                                   \
     (void) 0
 
 
@@ -57,18 +61,21 @@
  * @param      _expression_  Expression to be evaluated. If this expression evaluates to false, this causes an assertion failure.
  * @param      _message_     The string that will appear as runtime error if the _expression_ is false.
  */
-#define IMPL_DBGH_ASSERT_DEBUG(_level_, _expression_, _message_)                                                                       \
-    {                                                                                                                                  \
-        static bool __ignore { false };                                                                                                \
-        if ( (! __ignore) && (dbgh::CAssertConfig::Get().IsActiveAssert(_level_)) && (! bool(_expression_)) )                          \
-        {                                                                                                                              \
-            try {                                                                                                                      \
-                dbgh::impl::CAssertHandler::HandleAssert<_level_>(_message_, #_expression_ , __FILE__, __LINE__, __func__, __ignore);  \
-            } catch (const dbgh::impl::CAssertHandler::SStartDebuggingException) {                                                     \
-                 START_DEBUGGING;                                                                                                      \
-            }                                                                                                                          \
-        }                                                                                                                              \
-    }                                                                                                                                  \
+#define IMPL_DBGH_ASSERT_DEBUG(_level_, _expression_, _message_)                                                                        \
+    {                                                                                                                                   \
+        static bool __ignore { false };                                                                                                 \
+        if ( (! __ignore) && (dbgh::CAssertConfig::Get().IsActiveAssert(_level_)) && (! bool(_expression_)) )                           \
+        {                                                                                                                               \
+            try {                                                                                                                       \
+                dbgh::impl::CAssertHandler::HandleAssert<_level_>(_message_, #_expression_ , __FILE__, __LINE__, __func__, __ignore);   \
+            } catch (const dbgh::impl::CAssertHandler::SStartDebuggingException) {                                                      \
+                 START_DEBUGGING;                                                                                                       \
+            } catch (const dbgh::CAssertException& e) {                                                                                 \
+                throw e;                                                                                                                \
+            }                                                                                                                           \
+                                                                                                                                        \
+        }                                                                                                                               \
+    }                                                                                                                                   \
     (void) 0
 
 

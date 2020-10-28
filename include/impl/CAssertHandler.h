@@ -77,7 +77,7 @@ public:
      * @param[in]  line          The line number in the file that contains the code that is failed assertion.
      * @param[in]  function      The function that contains the code is a failed assertion.
      *
-     * @tparam     T             The \ref EAssertLevel enum value, type of assert.
+     * @enum       T             The \ref EAssertLevel enum value, type of assert.
      */
     template<EAssertLevel T, std::enable_if_t<(EAssertLevel::Warning == T), int> = 0>
     static void HandleAssert(
@@ -94,7 +94,7 @@ public:
      * @param[in]  line          The line number in the file that contains the code that is failed assertion.
      * @param[in]  function      The function that contains the code is a failed assertion.
      *
-     * @tparam     T             The \ref EAssertLevel enum value, type of assert.
+     * @enum       T             The \ref EAssertLevel enum value, type of assert.
      */
     template<EAssertLevel T, std::enable_if_t<(EAssertLevel::Debug == T), int> = 0>
     static void HandleAssert(
@@ -112,7 +112,7 @@ public:
      * @param[in]  line          The line number in the file that contains the code that is failed assertion.
      * @param[in]  function      The function that contains the code is a failed assertion.
      *
-     * @tparam     T             The \ref EAssertLevel enum value, type of assert.
+     * @enum       T             The \ref EAssertLevel enum value, type of assert.
      */
     template<EAssertLevel T, std::enable_if_t<(EAssertLevel::Error == T), int> = 0>
     static void HandleAssert(
@@ -129,7 +129,7 @@ public:
      * @param[in]  line          The line number in the file that contains the code that is failed assertion.
      * @param[in]  function      The function that contains the code is a failed assertion.
      *
-     * @tparam     T             The \ref EAssertLevel enum value, type of assert.
+     * @enum       T             The \ref EAssertLevel enum value, type of assert.
      */
     template<EAssertLevel T, std::enable_if_t<(EAssertLevel::Fatal == T), int> = 0>
     static void HandleAssert(

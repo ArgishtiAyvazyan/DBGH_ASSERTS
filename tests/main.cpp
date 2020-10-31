@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Assert.h"
+#include "DBGHAssert.h"
 
 namespace
 {

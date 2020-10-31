@@ -11,7 +11,7 @@ The C ++ standard also has **assert**, but they are very simple. The **DBGH_ASSE
 ```cpp
 
 #include <iostream>
-#include "Assert.h"
+#include "DBGHAssert.h"
 
 void DebugExample(int* value)
 {
@@ -42,7 +42,7 @@ int main()
 
 ### ASSERT_DEBUG
 
-Defined in header "Assert.h"
+Defined in header "DBGHAssert.h"
 
 If the argument expression of this macro with functional form compares equal to 0 (i.e., the expression is false),
 this causes an assertion failure that by default prints the assertion information to ```std::cerr``` and prompt the user
@@ -90,7 +90,7 @@ dbgh::CAssertConfig::Get().SetExecutor(std::make_unique<NewExecutor>());
 
 ### ASSERT_WARNING
 
-Defined in header "Assert.h"
+Defined in header "DBGHAssert.h"
 
 If the argument expression of this macro with functional form compares equal to 0 (i.e., the expression is false), this causes an assertion failure that calls **HandleWarning** in **dbgh::CHandlerExecutor** By default, **HandleWarning** prints the assertion information to ```std::cerr```.
 
@@ -129,7 +129,7 @@ dbgh::CAssertConfig::Get().SetExecutor(std::make_unique<NewExecutor>());
 
 ### ASSERT_ERROR
 
-Defined in header "Assert.h"
+Defined in header "DBGHAssert.h"
 
 If the argument expression of this macro with functional form compares equal to 0 (i.e., the expression is false), this causes an assertion failure that calls **HandleError** in **dbgh::CHandlerExecutor** By default, **HandleError** prints the assertion information to ```std::cerr``` and throws **dbgh::CAssertException**.
 
@@ -168,7 +168,7 @@ dbgh::CAssertConfig::Get().SetExecutor(std::make_unique<NewExecutor>());
 
 ### ASSERT_FATAL
 
-Defined in header "Assert.h"
+Defined in header "DBGHAssert.h"
 
 If the argument expression of this macro with functional form compares equal to 0 (i.e., the expression is false), this causes an assertion failure that calls Terminate in **dbgh::CHandlerExecutor**. By default, **Terminate** prints the assertion information to ```std::cerr``` and call ```std::terminate```.
 
@@ -207,7 +207,7 @@ dbgh::CAssertConfig::Get().SetExecutor(std::make_unique<NewExecutor>());
 
 ### Class dbgh::CAssertConfig
 
-Defined in header "Assert.h"
+Defined in header "DBGHAssert.h"
 
 This singlton class describes an assert configuration.
 The CAssertConfig class holds the configuration and state of an Assertions. Allows you to enable or disable specific types of Assertions.

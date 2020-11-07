@@ -19,7 +19,7 @@ CAssertException::CAssertException(
         const char* expression,
         const char* file,
         TLine line,
-        const char* function) noexcept
+        const char* function)
         : std::exception (),
         m_strMessage(message),
         m_strFileName(file),
@@ -55,7 +55,7 @@ std::string_view CAssertException::Expression() const noexcept
 
 const char* CAssertException::what() const noexcept
 {
-    return m_strMessage;
+    return m_strMessage.c_str();
 }
 
 } // namespace dbgh

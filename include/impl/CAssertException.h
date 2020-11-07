@@ -42,7 +42,7 @@ public:
             const char* expression,
             const char* file,
             TLine line,
-            const char* function) noexcept;
+            const char* function);
 
     /**
      * @brief   Gets a message that describes the current exception.
@@ -100,7 +100,7 @@ private:
      * @internal
      * @brief   The error description.
      */
-    const char* m_strMessage;
+    std::string m_strMessage;
 
     /**
      * @internal

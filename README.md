@@ -308,6 +308,13 @@ cmake -DCMAKE_BUILD_TYPE=Debug ..
 make -j <job count>
 ```
 
-## License
+### Build example and unit tests.
+```bash
+mkdir build
+cd ./build
+cmake -DDBGH_ASSERTS_BUILD_EXAMPLE=ON -DDBGH_ASSERTS_BUILD_UNIT_TESTS=ON ..
+make -j <job count>
+```
 
+## License
 This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details

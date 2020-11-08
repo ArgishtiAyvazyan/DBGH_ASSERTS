@@ -5,6 +5,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+option(DBGH_ASSERTS_BUILD_UNIT_TESTS "Build unit test." OFF)
+option(DBGH_ASSERTS_BUILD_EXAMPLE "Build example." OFF)
+
+
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     # using Clang
     add_compile_options(
@@ -157,5 +161,11 @@ set(CMAKE_CXX_FLAGS_DEBUG_INIT "-g")
 set(CMAKE_CXX_FLAGS_RELEASE_INIT "")
 
 add_subdirectory("include")
-add_subdirectory("example")
-add_subdirectory("tests")
+
+IF (DBGH_ASSERTS_BUILD_EXAMPLE)
+    add_subdirectory("example")
+ENDIF()
+
+IF (DBGH_ASSERTS_BUILD_UNIT_TESTS)
+    add_subdirectory("tests")
+ENDIF()

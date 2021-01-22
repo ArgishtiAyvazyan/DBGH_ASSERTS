@@ -50,6 +50,8 @@ template<EAssertLevel T, std::enable_if_t<(EAssertLevel::Debug == T), int>>
 inline void CAssertHandler::HandleAssert(
         const char* message, const char* expression, const char* file, TLine line, const char* function, bool& ignore)
 {
+    CAssertConfig::Get().GetExecutor()->DebugPreCall();
+
     const auto strInfo = margeAssertInfo(T, message, expression, file, line, function);
 
     CAssertConfig::Get().GetExecutor()->ShowMessage(strInfo);

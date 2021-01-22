@@ -50,4 +50,8 @@ char CHandlerExecutor::GetUserInput()
     return ch;
 }
 
+void CHandlerExecutor::DebugPreCall()
+{
+}
+
 } // namespace dbgh

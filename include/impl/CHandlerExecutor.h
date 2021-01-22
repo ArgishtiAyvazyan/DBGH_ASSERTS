@@ -163,6 +163,25 @@ public:
      */
     virtual char GetUserInput();
 
+    /**
+     * @brief      The pre handle for ASSERT_DEBUG.
+     *
+     * @details    By default empty.
+     *
+     * @note       To add new behavior, defined the new class inherits from
+     *              \ref dbgh::CHandlerExecutor and override this method, and set in dbgh::CAssertConfig.
+     *             For example, possible to add a stack trace logging or notify other processes, and so on.
+     *
+     * @example    void DebugPreCall(std::string_view message, const CAssertException &exception) override
+     *             {
+     *                 std::stringstream ss;
+     *                 ss << boost::stacktrace::stacktrace() << std::endl;
+     *                 ss << message << std::endl;
+     *                 Logs(ss.str());
+     *             }
+     */
+    virtual void DebugPreCall();
+
 }; // class CHandlerExecutor
 
 } // namespace dbgh

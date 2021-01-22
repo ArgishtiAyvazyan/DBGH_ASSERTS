@@ -203,6 +203,15 @@ dbgh::CAssertConfig::Get().SetExecutor(std::make_unique<NewExecutor>());
 
 **\_message\_**     The string that will appear as runtime error if the **\_expression\_** is false.
 
+### Debug mode.
+
+In a debug mode all asserts convert to ASSERT_DEBUG.
+
+To enable debug mode use the CMake parameter -DDEBUG_MODE=ON
+```bash
+cmake -DDEBUG_MODE=ON ..
+```
+
 ## API for configure assertions.
 
 ### Class dbgh::CAssertConfig

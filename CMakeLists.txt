@@ -7,7 +7,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 option(DBGH_ASSERTS_BUILD_UNIT_TESTS "Build unit test." OFF)
 option(DBGH_ASSERTS_BUILD_EXAMPLE "Build example." OFF)
+option(DEBUG_MODE "Enable debug mode." OFF)
 
+if (DEBUG_MODE)
+    add_definitions(-DDEBUG)
+endif()
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     # using Clang

@@ -1,3 +1,5 @@
+#add_definitions(-DDEBUG)
+
 add_executable(
     main_exec
     main.cpp

@@ -117,6 +117,8 @@
  */
 #define ASSERT_DEBUG(_expression_, _message_)    IMPL_DBGH_ASSERT_DEBUG(dbgh::EAssertLevel::Debug, _expression_, _message_)
 
+#ifndef DEBUG
+
 /**
  * @brief      If the argument expression of this macro with functional form compares equal to 0 (i.e., the expression is false),
  *              this causes an assertion failure that calls HandleWarning in \ref dbgh::CHandlerExecutor.
@@ -208,3 +210,16 @@
  * @param      _message_     The string that will appear as runtime error if the _expression_ is false.
  */
 #define ASSERT_FATAL(_expression_, _message_)    IMPL_DBGH_ASSERT(dbgh::EAssertLevel::Fatal, _expression_, _message_)
+
+#else
+
+/**
+ * @brief      The defines in debug mode.
+ *
+ * @details    In debug mode, all asserts replace to \ref ASSERT_DEBUG
+ */
+#define ASSERT_WARNING(_expression_, _message_)  IMPL_DBGH_ASSERT_DEBUG(dbgh::EAssertLevel::Debug, _expression_, _message_)
+#define ASSERT_ERROR(_expression_, _message_)    IMPL_DBGH_ASSERT_DEBUG(dbgh::EAssertLevel::Debug, _expression_, _message_)
+#define ASSERT_FATAL(_expression_, _message_)    IMPL_DBGH_ASSERT_DEBUG(dbgh::EAssertLevel::Debug, _expression_, _message_)
+
+#endif

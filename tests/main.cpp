@@ -10,11 +10,13 @@ class DummyExecutor : public dbgh::CHandlerExecutor
 public:
     void Terminate([[maybe_unused]] std::string_view message) override
     {
+        Logs(message);
         s_bTerminateCalled = true;
     }
 
     void HandleWarning([[maybe_unused]] std::string_view message) override
     {
+        Logs(message);
         s_bHandleWarningCalled = true;
     }
 
@@ -22,15 +24,18 @@ public:
             [[maybe_unused]] std::string_view message,
             [[maybe_unused]] const dbgh::CAssertException& exception) override
     {
+        Logs(message);
         s_bHandleErrorCalled = true;
     }
 
     void Logs([[maybe_unused]] std::string_view message) override
     {
+        s_strMessage = message;
     }
 
     void ShowMessage([[maybe_unused]] std::string_view message) override
     {
+        Logs(message);
     }
 
     char GetUserInput() override
@@ -42,6 +47,7 @@ public:
     static inline bool s_bHandleWarningCalled = false;
     static inline bool s_bHandleErrorCalled = false;
     static inline char s_cUserInput = 'i';
+    static inline std::string s_strMessage{};
 };
 
 }
@@ -173,13 +179,36 @@ void TestDebugAssert()
     dbgh::CAssertConfig::Get().SetExecutor();
 }
 
+void TestTextFormating()
+{
+    std::cout << "Start text format testing." << std::endl;
+    dbgh::CAssertConfig::Get().EnableAsserts(dbgh::EAssertLevel::Warning);
+    dbgh::CAssertConfig::Get().EnableAsserts(dbgh::EAssertLevel::Error);
+    dbgh::CAssertConfig::Get().EnableAsserts(dbgh::EAssertLevel::Fatal);
+    dbgh::CAssertConfig::Get().EnableAsserts(dbgh::EAssertLevel::Debug);
+
+    dbgh::CAssertConfig::Get().SetExecutor(std::make_unique<DummyExecutor>());
+
+    DummyExecutor::s_cUserInput = 'i';
+    ASSERT_WARNING(2 * 3 == 4, "_Text");
+    auto lastEnd = DummyExecutor::s_strMessage.find_last_of('_');
+    std::string message = DummyExecutor::s_strMessage.substr(lastEnd, DummyExecutor::s_strMessage.size() - lastEnd - 2);
+    TEST_ASSERT(message == "_Text");
+    ASSERT_WARNING(2 * 3 == 4, "_Text: {0},{1},{2}", 121, 15.45, "Value");
+    lastEnd = DummyExecutor::s_strMessage.find_last_of('_');
+    message = DummyExecutor::s_strMessage.substr(lastEnd, DummyExecutor::s_strMessage.size() - lastEnd - 2);
+    TEST_ASSERT(message == "_Text: 121,15.45,Value");
+
+    std::cout << "End text format testing." << std::endl;
+}
+
 int main()
 {
     TestFatalAssert();
     TestWarningAssert();
     TestErrorAssert();
     TestDebugAssert();
-
+    TestTextFormating();
     std::cout << "__END_OF_TESTING__" << std::endl;
     return 0;
 }

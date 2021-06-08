@@ -297,6 +297,30 @@ int main()
 
 ```
 
+## Message formatting
+
+The first argument std::string_view representing the format string. The format string consists of
+   * ordinary characters (except { and }), which are copied unchanged to the output,
+   * escape sequences {{ and }}, which are replaced with { and } respectively in the output, and
+   * replacement fields.
+
+Each replacement field has the following format:
+   * introductory { character;
+   * (optional) arg-id, a non-negative number;
+   * (optional) a colon (:) followed by a format specification;
+   * final } character.
+
+arg-id specifies the index of the argument in args whose value is to be used for formatting;
+f arg-id is omitted, the arguments are used in order. The arg-ids in a format string must all be
+resent or all be omitted. Mixing manual and automatic indexing is an error.
+
+### example
+
+```cpp
+ASSERT_ERROR(vec.size() < vecSizeThreshold>, "The vector size always less than {}, the current size is: {}.", vecSizeThreshold, vec.size());
+ASSERT_ERROR(vec.size() < vecSizeThreshold>, "The vector size always less than {1}, the current size is: {0}.", vec.size(), vecSizeThreshold);
+```
+
 ## Building DBGH_ASSERTS
 
 ### Release build:

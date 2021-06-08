@@ -41,14 +41,14 @@ namespace
 
 template<EAssertLevel T, std::enable_if_t<(EAssertLevel::Warning == T), int>>
 inline void CAssertHandler::HandleAssert(
-        const char* message, const char* expression, const char* file, TLine line, const char* function)
+        std::string message, const char* expression, const char* file, TLine line, const char* function)
 {
     CAssertConfig::Get().GetExecutor()->HandleWarning(margeAssertInfo(T, message, expression, file, line, function));
 }
 
 template<EAssertLevel T, std::enable_if_t<(EAssertLevel::Debug == T), int>>
 inline void CAssertHandler::HandleAssert(
-        const char* message, const char* expression, const char* file, TLine line, const char* function, bool& ignore)
+        std::string message, const char* expression, const char* file, TLine line, const char* function, bool& ignore)
 {
     CAssertConfig::Get().GetExecutor()->DebugPreCall();
 
@@ -80,21 +80,22 @@ inline void CAssertHandler::HandleAssert(
 
 template<EAssertLevel T, std::enable_if_t<(EAssertLevel::Error == T), int>>
 inline void CAssertHandler::HandleAssert(
-        const char* message, const char* expression, const char* file, TLine line, const char* function)
+        std::string message, const char* expression, const char* file, TLine line, const char* function)
 {
-    CAssertConfig::Get().GetExecutor()->HandleError(margeAssertInfo(T, message, expression, file, line, function)
-                                                    , CAssertException { message, expression, file, line, function });
+    auto assertInfo = margeAssertInfo(T, message, expression, file, line, function);
+    CAssertConfig::Get().GetExecutor()->HandleError(assertInfo
+                                                    , CAssertException { std::move(message), expression, file, line, function });
 }
 
 template<EAssertLevel T, std::enable_if_t<(EAssertLevel::Fatal == T), int>>
 inline void CAssertHandler::HandleAssert(
-        const char* message, const char* expression, const char* file, TLine line, const char* function)
+        std::string message, const char* expression, const char* file, TLine line, const char* function)
 {
     CAssertConfig::Get().GetExecutor()->Terminate(margeAssertInfo(T, message, expression, file, line, function));
 }
 
 std::string CAssertHandler::margeAssertInfo(
-        EAssertLevel level, const char* message, const char* expression, const char* file, TLine line,
+        EAssertLevel level, const std::string& message, const char* expression, const char* file, TLine line,
         const char* function)
 {
     std::stringstream ss;
@@ -147,15 +148,15 @@ void CAssertHandler::startDebugging()
 }
 
 template void
-CAssertHandler::HandleAssert<EAssertLevel::Warning>(const char*, const char*, const char*, TLine, const char*);
+CAssertHandler::HandleAssert<EAssertLevel::Warning>(std::string, const char*, const char*, TLine, const char*);
 
 template void CAssertHandler::HandleAssert<EAssertLevel::Debug>(
-        const char*, const char*, const char*, TLine, const char*, bool&);
+        std::string, const char*, const char*, TLine, const char*, bool&);
 
 template void
-CAssertHandler::HandleAssert<EAssertLevel::Error>(const char*, const char*, const char*, TLine, const char*);
+CAssertHandler::HandleAssert<EAssertLevel::Error>(std::string, const char*, const char*, TLine, const char*);
 
 template void
-CAssertHandler::HandleAssert<EAssertLevel::Fatal>(const char*, const char*, const char*, TLine, const char*);
+CAssertHandler::HandleAssert<EAssertLevel::Fatal>(std::string, const char*, const char*, TLine, const char*);
 
 } // namespace dbgh::impl

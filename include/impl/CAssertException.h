@@ -38,7 +38,7 @@ public:
      * @param[in] function      The function that contains the code that is throwing an exception.
      */
     CAssertException(
-            const char* message,
+            std::string message,
             const char* expression,
             const char* file,
             TLine line,

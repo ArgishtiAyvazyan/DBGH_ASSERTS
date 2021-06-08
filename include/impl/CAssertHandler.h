@@ -81,7 +81,7 @@ public:
      */
     template<EAssertLevel T, std::enable_if_t<(EAssertLevel::Warning == T), int> = 0>
     static void HandleAssert(
-            const char* message, const char* expression, const char* file, TLine line, const char* function);
+            std::string message, const char* expression, const char* file, TLine line, const char* function);
 
     /**
      * @internal
@@ -98,7 +98,7 @@ public:
      */
     template<EAssertLevel T, std::enable_if_t<(EAssertLevel::Debug == T), int> = 0>
     static void HandleAssert(
-            const char* message, const char* expression, const char* file, TLine line, const char* function,
+            std::string message, const char* expression, const char* file, TLine line, const char* function,
             bool& ignore);
 
     /**
@@ -116,7 +116,7 @@ public:
      */
     template<EAssertLevel T, std::enable_if_t<(EAssertLevel::Error == T), int> = 0>
     static void HandleAssert(
-            const char* message, const char* expression, const char* file, TLine line, const char* function);
+            std::string message, const char* expression, const char* file, TLine line, const char* function);
 
     /**
      * @internal
@@ -133,7 +133,7 @@ public:
      */
     template<EAssertLevel T, std::enable_if_t<(EAssertLevel::Fatal == T), int> = 0>
     static void HandleAssert(
-            const char* message, const char* expression, const char* file, TLine line, const char* function);
+            std::string message, const char* expression, const char* file, TLine line, const char* function);
 
 private:
 
@@ -167,7 +167,7 @@ private:
      * @return     Merged information as a string.
      */
     static std::string margeAssertInfo(
-            EAssertLevel level, const char* message, const char* expression, const char* file, TLine line,
+            EAssertLevel level, const std::string& message, const char* expression, const char* file, TLine line,
             const char* function);
 
 private:
@@ -177,15 +177,15 @@ private:
 
 
 extern template void
-CAssertHandler::HandleAssert<EAssertLevel::Warning>(const char*, const char*, const char*, TLine, const char*);
+CAssertHandler::HandleAssert<EAssertLevel::Warning>(std::string, const char*, const char*, TLine, const char*);
 
 extern template void
-CAssertHandler::HandleAssert<EAssertLevel::Debug>(const char*, const char*, const char*, TLine, const char*, bool&);
+CAssertHandler::HandleAssert<EAssertLevel::Debug>(std::string, const char*, const char*, TLine, const char*, bool&);
 
 extern template void
-CAssertHandler::HandleAssert<EAssertLevel::Error>(const char*, const char*, const char*, TLine, const char*);
+CAssertHandler::HandleAssert<EAssertLevel::Error>(std::string, const char*, const char*, TLine, const char*);
 
 extern template void
-CAssertHandler::HandleAssert<EAssertLevel::Fatal>(const char*, const char*, const char*, TLine, const char*);
+CAssertHandler::HandleAssert<EAssertLevel::Fatal>(std::string, const char*, const char*, TLine, const char*);
 
 } // namespace dbgh

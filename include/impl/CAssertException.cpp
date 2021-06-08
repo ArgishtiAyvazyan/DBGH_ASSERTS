@@ -15,13 +15,13 @@ namespace dbgh
 using namespace std::string_literals;
 
 CAssertException::CAssertException(
-        const char* message,
+        std::string message,
         const char* expression,
         const char* file,
         TLine line,
         const char* function)
         : std::exception (),
-        m_strMessage(message),
+        m_strMessage(std::move(message)),
         m_strFileName(file),
         m_strExpression(expression),
         m_strFunction(function),

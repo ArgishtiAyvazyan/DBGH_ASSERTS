@@ -1,6 +1,6 @@
 # DBGH_ASSERTS
 
-An assertion library for C++
+## An assertion library for C++
 
 The assert statement exists in almost every programming language. It helps detect problems early in your program, where the cause is clear, rather than later as a side-effect of some other operation.
 
